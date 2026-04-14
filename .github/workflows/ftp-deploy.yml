@@ -20,7 +20,10 @@ jobs:
       - name: 📦 PHP Kurulumu
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2' # Projenizin PHP sürümüne göre güncelleyin
+          php-version: '8.4' # Projenizin PHP sürümüne göre güncelleyin
+
+      - name: Add Flux Credentials
+        run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
 
       - name: 🔨 Composer Bağımlılıklarını Yükle
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
@@ -28,7 +31,7 @@ jobs:
       - name: 🏗️ Node.js Kurulumu
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: 🔨 NPM Bağımlılıklarını Yükle ve Build Al (Vite)
         run: |
