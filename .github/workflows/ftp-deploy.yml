@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main # Deploy edilecek branch
+  workflow_dispatch: # Bu satır manuel tetiklemeye izin verir
+
 
 jobs:
   deploy:
