@@ -1,0 +1,51 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - main # Deploy edilecek branch
+
+jobs:
+  deploy:
+    name: Deploy to FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Kodu Çek
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 📦 PHP Kurulumu
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Projenizin PHP sürümüne göre güncelleyin
+
+      - name: 🔨 Composer Bağımlılıklarını Yükle
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+
+      - name: 🏗️ Node.js Kurulumu
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🔨 NPM Bağımlılıklarını Yükle ve Build Al (Vite)
+        run: |
+          npm install
+          npm run build
+
+      - name: 🚀 FTP'ye Yükle
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/ # Sunucunuzdaki hedef dizin (duruma göre değiştirmelisiniz, örn: / veya /httpdocs/)
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            **/.env*
+            phpunit.xml
+            .editorconfig
+            README.md
