@@ -41,13 +41,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ./ # Sunucunuzdaki hedef dizin (duruma göre değiştirmelisiniz, örn: / veya /httpdocs/)
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/tests/**
-            **/.env*
-            phpunit.xml
-            .editorconfig
-            README.md
+          server-dir: /
+          
+          
+
