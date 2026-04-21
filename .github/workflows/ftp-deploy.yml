@@ -20,7 +20,7 @@ jobs:
       - name: 📦 PHP Kurulumu
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4' # Projenizin PHP sürümüne göre güncelleyin
+          php-version: '8.2' # Projenizin PHP sürümüne göre güncelleyin
 
       - name: Add Flux Credentials
         run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
