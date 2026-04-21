@@ -45,6 +45,14 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-          
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env.example
+            .editorconfig
+            phpunit.xml
+            pint.json
+            README.md
           
 
